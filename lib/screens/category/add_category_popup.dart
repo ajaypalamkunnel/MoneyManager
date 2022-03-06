@@ -14,6 +14,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
         return SimpleDialog(
           title: const Text('Add Category'),
           children: [
+            //fprm field
             Padding(
               padding: const EdgeInsets.all(20),
               child: TextFormField(
@@ -46,7 +47,8 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                   final _category = CategoryModel(
                       id: DateTime.now().millisecondsSinceEpoch.toString(),
                       name: _name,
-                      type: _type);
+                      type: _type
+                      );
 
                   CategoryDB().insertCategory(_category);
                   Navigator.of(ctx).pop();
@@ -79,7 +81,10 @@ class RadioButton extends StatelessWidget {
           builder: (BuildContext ctx, CategoryType newCategory, Widget? _) {
             return Radio<CategoryType>(
               value: type,
-              groupValue: selectCategoryNotifier.value,
+              //selected category
+              groupValue: newCategory,
+              //selectCategoryNotifier.value,
+              //clicked value in onchanged
               onChanged: (value) {
                 if (value == null) {
                   return;

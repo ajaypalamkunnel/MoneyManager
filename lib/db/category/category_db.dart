@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manager/models/category/category_model.dart';
 
@@ -11,8 +12,21 @@ abstract class CategoryDbFunctions {
 }
 
 class CategoryDB implements CategoryDbFunctions {
-  ValueNotifier<List<CategoryModel>> incomeCategoryListListner = ValueNotifier([]);
-  ValueNotifier<List<CategoryModel>> expenseCategoryListListner = ValueNotifier([]);
+  //_internal is a named constructor
+  CategoryDB._internal();
+
+  static CategoryDB instance = CategoryDB._internal();
+
+  factory CategoryDB() {
+    return instance;
+  }
+
+  ValueNotifier<List<CategoryModel>> incomeCategoryListListner =
+      ValueNotifier([]);
+  ValueNotifier<List<CategoryModel>> expenseCategoryListListner =
+      ValueNotifier([]);
+
+  //insert function
   @override
   Future<void> insertCategory(CategoryModel value) async {
     final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
@@ -20,6 +34,7 @@ class CategoryDB implements CategoryDbFunctions {
     refreshUI();
   }
 
+//display function
   @override
   Future<List<CategoryModel>> getCategory() async {
     final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
