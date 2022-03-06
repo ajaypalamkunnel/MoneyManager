@@ -50,7 +50,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                       type: _type
                       );
 
-                  CategoryDB().insertCategory(_category);
+                  CategoryDB.instance.insertCategory(_category);
                   Navigator.of(ctx).pop();
                 },
                 style: ElevatedButton.styleFrom(

@@ -23,8 +23,11 @@ class ExpenseCategoryList extends StatelessWidget {
                     Category.name,
                     style: const TextStyle(color: Colors.white),
                   ),
-                  trailing:
-                      IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                  trailing: IconButton(
+                      onPressed: () {
+                        CategoryDB.instance.deleteCategory(Category.id);
+                      },
+                      icon: const Icon(Icons.delete)),
                 ),
               );
             },

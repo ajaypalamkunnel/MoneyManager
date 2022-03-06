@@ -9,6 +9,7 @@ abstract class CategoryDbFunctions {
   Future<List<CategoryModel>> getCategory();
   //insert function declaration in abstract class
   Future<void> insertCategory(CategoryModel value);
+  Future<void> deleteCategory(String categoryId);
 }
 
 class CategoryDB implements CategoryDbFunctions {
@@ -17,6 +18,7 @@ class CategoryDB implements CategoryDbFunctions {
 
   static CategoryDB instance = CategoryDB._internal();
 
+  //factory for creating only one object
   factory CategoryDB() {
     return instance;
   }
@@ -30,7 +32,7 @@ class CategoryDB implements CategoryDbFunctions {
   @override
   Future<void> insertCategory(CategoryModel value) async {
     final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
-    await _categoryDB.add(value);
+    await _categoryDB.put(value.id, value);
     refreshUI();
   }
 
@@ -56,5 +58,12 @@ class CategoryDB implements CategoryDbFunctions {
     });
     incomeCategoryListListner.notifyListeners();
     expenseCategoryListListner.notifyListeners();
+  }
+
+  @override
+  Future<void> deleteCategory(String categoryID) async {
+    final _categoryDB = await Hive.openBox<CategoryModel>(CATEGORY_DB_NAME);
+    await _categoryDB.delete(categoryID);
+    refreshUI();
   }
 }
