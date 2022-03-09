@@ -15,6 +15,10 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
   DateTime? _selectedDate;
   CategoryType? _selectedCategorytype;
   CategoryModel? _selectedCategorymodel;
+  String? _categoryID;
+
+  final _purposeTextEditingController = TextEditingController();
+  final _amountTextEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -51,6 +55,7 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                         SizedBox(height: 20),
                         //purpose
                         TextFormField(
+                          controller: _purposeTextEditingController,
                           decoration: const InputDecoration(
                               labelText: 'Purpose',
                               labelStyle: TextStyle(color: Colors.indigo)),
@@ -58,6 +63,7 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
 
                         //Amount
                         TextFormField(
+                          controller: _amountTextEditingController,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               labelText: 'Amount',
@@ -96,9 +102,15 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                             Row(
                               children: [
                                 Radio(
-                                    value: false,
-                                    groupValue: CategoryType.income,
-                                    onChanged: (newValue) {}),
+                                    value: CategoryType.income,
+                                    groupValue: _selectedCategorytype,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _selectedCategorytype =
+                                            CategoryType.income;
+                                        _categoryID = null;
+                                      });
+                                    }),
                                 const Text(
                                   "Income",
                                   style: TextStyle(color: Colors.indigo),
@@ -108,9 +120,15 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                             Row(
                               children: [
                                 Radio(
-                                    value: false,
-                                    groupValue: CategoryType.income,
-                                    onChanged: (newValue) {}),
+                                    value: CategoryType.expense,
+                                    groupValue: _selectedCategorytype,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _selectedCategorytype =
+                                            CategoryType.expense;
+                                        _categoryID = null;
+                                      });
+                                    }),
                                 const Text(
                                   "Expense",
                                   style: TextStyle(color: Colors.indigo),
@@ -124,8 +142,10 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                         DropdownButton(
                           style: TextStyle(color: Colors.indigo),
                           hint: const Text('Setlect Category'),
-                          items: CategoryDB()
-                              .expenseCategoryListListner
+                          value: _categoryID,
+                          items: (_selectedCategorytype == CategoryType.income
+                                  ? CategoryDB().incomeCategoryListListner
+                                  : CategoryDB().expenseCategoryListListner)
                               .value
                               .map((e) {
                             return DropdownMenuItem(
@@ -135,6 +155,9 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                           }).toList(),
                           onChanged: (selectedValue) {
                             print(selectedValue);
+                            setState(() {
+                              _categoryID = selectedValue as String?;
+                            });
                           },
                         ),
                         ElevatedButton(
@@ -151,5 +174,10 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
         ),
       ),
     );
+  }
+
+  Future<void> addTransaction() async {
+    final _purposeText = _purposeTextEditingController.text;
+    final _amountText = _amountTextEditingController.text;
   }
 }

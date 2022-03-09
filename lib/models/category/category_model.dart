@@ -11,6 +11,9 @@ enum CategoryType {
   expense,
 }
 
+
+
+
 @HiveType(typeId: 1)
 class CategoryModel {
   @HiveField(0)

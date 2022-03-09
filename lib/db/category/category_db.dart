@@ -16,7 +16,8 @@ class CategoryDB implements CategoryDbFunctions {
   //_internal is a named constructor
   CategoryDB._internal();
 
-  static CategoryDB instance = CategoryDB._internal();
+  static CategoryDB 
+  instance = CategoryDB._internal();
 
   //factory for creating only one object
   factory CategoryDB() {
