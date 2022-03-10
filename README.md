@@ -1,6 +1,6 @@
 # money_manager
 
-A new Flutter project.
+My first android application personal money management application using flutter. 
 
 ## Getting Started
 
