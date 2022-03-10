@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manager/db/category/category_db.dart';
+import 'package:money_manager/db/category/transaction_db.dart';
 import 'package:money_manager/models/category/category_model.dart';
+import 'package:money_manager/models/transactions/transactions_list.dart';
 
 class ScreenaddTranscations extends StatefulWidget {
   static const routeName = 'add-transaction';
@@ -151,6 +153,9 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                             return DropdownMenuItem(
                               value: e.id,
                               child: Text(e.name),
+                              onTap: () {
+                                _selectedCategorymodel = e;
+                              },
                             );
                           }).toList(),
                           onChanged: (selectedValue) {
@@ -164,7 +169,9 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all(Colors.indigo)),
-                            onPressed: () {},
+                            onPressed: () {
+                              addTransaction();
+                            },
                             child: const Text('Add Transaction'))
                       ]),
                 ),
@@ -179,5 +186,38 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
   Future<void> addTransaction() async {
     final _purposeText = _purposeTextEditingController.text;
     final _amountText = _amountTextEditingController.text;
+    if (_purposeText.isEmpty) {
+      return;
+    }
+    if (_amountText.isEmpty) {
+      return;
+    }
+    if (_categoryID == null) {
+      return;
+    }
+    if (_selectedDate == null) {
+      return;
+    }
+    final _parsedAmount = double.tryParse(_amountText);
+    if (_parsedAmount == null) {
+      return;
+    }
+    if (_selectedCategorymodel == null) {
+      return;
+    }
+    //_selectedDate;
+    //_selectedCategorytype
+    //_categoryID
+    final _model = TransactionModel(
+      purpose: _purposeText,
+      amount: _parsedAmount,
+      date: _selectedDate!,
+      type: _selectedCategorytype!,
+      category: _selectedCategorymodel!,
+    );
+
+    await TransactionDB.instance.addTransaction(_model);
+    Navigator.of(context).pop();
+    TransactionDB.instance.refresh();
   }
 }
