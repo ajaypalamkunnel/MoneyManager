@@ -19,35 +19,46 @@ class ScreenTransactions extends StatelessWidget {
           padding: EdgeInsets.all(10),
           itemBuilder: (ctx, index) {
             final _value = newList[index];
-            return Card(
-              color: Colors.indigo.shade500,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 50,
-                  backgroundColor: _value.type == CategoryType.income
-                      ? Colors.green
-                      : Colors.red,
-                  child: Text(
-                    parseDate(_value.date),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+            return Stack(
+              children: [
+                
+                Dismissible(
+                  key: Key(_value.id!),
+                  confirmDismiss: (direction) async {
+                    return false;
+                  },
+                  child: Card(
+                    color: Colors.indigo.shade500,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 50,
+                        backgroundColor: _value.type == CategoryType.income
+                            ? Colors.green
+                            : Colors.red,
+                        child: Text(
+                          parseDate(_value.date),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ),
+                      title: Text(
+                        'Rs ${_value.amount}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        _value.category.name,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      trailing: Text(
+                        _value.purpose,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ),
                 ),
-                title: Text(
-                  'Rs ${_value.amount}',
-                  style: TextStyle(color: Colors.white),
-                ),
-                subtitle: Text(
-                  _value.category.name,
-                  style: TextStyle(color: Colors.white),
-                ),
-                trailing: Text(
-                  _value.purpose,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              ],
             );
           },
           separatorBuilder: (ctx, index) {
