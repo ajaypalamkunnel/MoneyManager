@@ -5,6 +5,7 @@ import 'package:money_manager/models/transactions/transactions_list.dart';
 import 'package:money_manager/screens/add_tansactions/screen_add_transctions.dart';
 
 import 'screens/home/screen_home.dart';
+import 'screens/home/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ScreenHome(),
+      home: const Splash(),
       routes: {
         ScreenaddTranscations.routeName:(ctx) =>const ScreenaddTranscations()
       },
