@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 import 'screen_home.dart';
@@ -17,7 +18,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 2500), () {});
+    await Future.delayed(Duration(milliseconds: 5000), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => ScreenHome()));
   }
@@ -27,11 +28,49 @@ class _SplashState extends State<Splash> {
     return Scaffold(
         backgroundColor: Colors.indigo.shade900,
         body: Center(
-          child: Container(
-            child: Text(
-              'MoneyManger',
-              style: TextStyle(color: Colors.white, fontSize: 30),
-            ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'M',
+                style: TextStyle(
+                  color: Colors.yellow.shade800,
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Text(
+                'oney',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 32.0,
+                  fontFamily: 'Bobbers',
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              SizedBox(width: 5),
+              Container(
+                child: AnimatedTextKit(
+                  animatedTexts: [
+                    WavyAnimatedText(
+                      'Manager',
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 32.0,
+                        fontFamily: 'Bobbers',
+                        fontWeight: FontWeight.w900,
+                      ),
+                      speed: const Duration(milliseconds: 400),
+                    ),
+                  ],
+                  totalRepeatCount: 4,
+                  pause: const Duration(milliseconds: 100),
+                  displayFullTextOnTap: true,
+                  stopPauseOnTap: true,
+                ),
+              ),
+            ],
           ),
         ));
   }
