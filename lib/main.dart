@@ -4,7 +4,6 @@ import 'package:money_manager/models/category/category_model.dart';
 import 'package:money_manager/models/transactions/transactions_list.dart';
 import 'package:money_manager/screens/add_tansactions/screen_add_transctions.dart';
 
-import 'screens/home/screen_home.dart';
 import 'screens/home/splash_screen.dart';
 
 Future<void> main() async {
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Splash(),
       routes: {
-        ScreenaddTranscations.routeName:(ctx) =>const ScreenaddTranscations()
+        ScreenaddTranscations.routeName: (ctx) => const ScreenaddTranscations()
       },
     );
   }
