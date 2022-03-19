@@ -15,13 +15,16 @@ class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         backgroundColor: Colors.indigo.shade900,
         title: Text('Money Manger'),
       ),
       bottomNavigationBar: MoneyManagerBottomNavigation(),
       body: SafeArea(
+        
           child: ValueListenableBuilder(
+            
               valueListenable: selectedIndexNotifier,
               builder: (BuildContext context, int updatedIndex, _) {
                 return _pages[updatedIndex];

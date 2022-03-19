@@ -31,6 +31,7 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.indigo.shade300,
       appBar: AppBar(
         backgroundColor: Colors.indigo,
@@ -44,17 +45,18 @@ class _ScreenaddTranscationsState extends State<ScreenaddTranscations> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20),
             child: Container(
+              height: 370,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(height: 20),
+                        // SizedBox(height: 2),
                         //purpose
                         TextFormField(
                           controller: _purposeTextEditingController,

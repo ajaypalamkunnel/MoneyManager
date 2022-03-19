@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 5000), () {});
+    await Future.delayed(Duration(milliseconds: 4700), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => ScreenHome()));
   }
@@ -64,8 +64,8 @@ class _SplashState extends State<Splash> {
                       speed: const Duration(milliseconds: 400),
                     ),
                   ],
-                  totalRepeatCount: 4,
-                  pause: const Duration(milliseconds: 100),
+                  totalRepeatCount: 2,
+                  pause: const Duration(milliseconds: 90),
                   displayFullTextOnTap: true,
                   stopPauseOnTap: true,
                 ),
